@@ -99,13 +99,11 @@ namespace DualBookScan
                 String fileName;
                 fileName = String.Format("{0}\\{1,6:000000}.png", ebFolder.Text, nudPage1.Value);
 
-                Rectangle rto = RectResize(rect[0], ratios[0], 0);
-                Rectangle rt = rto;
-
                 Bitmap bmp = videoSourcePlayer1.GetCurrentVideoFrame();
-                Bitmap sub = CropImage(bmp, rt);
-                sub.Save(fileName, ImageFormat.Png);
-                sub.Dispose();
+                //Bitmap sub = CropImage(bmp, rt);
+                //sub.Save(fileName, ImageFormat.Png);
+                //sub.Dispose();
+                bmp.Save(fileName, ImageFormat.Png);
                 bmp.Dispose();
             }
             finally
@@ -122,13 +120,11 @@ namespace DualBookScan
                 String fileName;
                 fileName = String.Format("{0}\\{1,6:000000}.png", ebFolder.Text, nudPage2.Value);
 
-                Rectangle rto = RectResize(rect[1], ratios[1], 0);
-                Rectangle rt = rto;
-
                 Bitmap bmp = videoSourcePlayer2.GetCurrentVideoFrame();
-                Bitmap sub = CropImage(bmp, rt);
-                sub.Save(fileName, ImageFormat.Png);
-                sub.Dispose();
+                //Bitmap sub = CropImage(bmp, rt);
+                //sub.Save(fileName, ImageFormat.Png);
+                //sub.Dispose();
+                bmp.Save(fileName, ImageFormat.Png);
                 bmp.Dispose();
             }
             finally
