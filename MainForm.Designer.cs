@@ -162,7 +162,7 @@
             this.ebFolder.Name = "ebFolder";
             this.ebFolder.Size = new System.Drawing.Size(242, 21);
             this.ebFolder.TabIndex = 14;
-            this.ebFolder.Text = "D:\\TEMP";
+            this.ebFolder.Text = "C:\\TEMP";
             // 
             // btnFolder
             // 

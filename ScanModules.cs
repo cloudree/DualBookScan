@@ -65,21 +65,12 @@ namespace DualBookScan
             nudPage1.Refresh();
         }
 
-        private Rectangle RectResize(Rectangle rt, float ratio, int rot)
+        private Rectangle RectResize(Rectangle rt, float ratio)
         {
-            int x = (int)(rt.Location.X * ratio);
-            int y = (int)(rt.Location.Y * ratio);
-            int w = (int)(rt.Size.Width * ratio);
-            int h = (int)(rt.Size.Height * ratio);
-
-            switch (rot)
-            {
-                case 1:
-                    //Swap(ref x, ref y);
-                    //Swap(ref w, ref h);
-                    break;
-            }
-
+            int x = (int)(rt.Location.X / ratio);
+            int y = (int)(rt.Location.Y / ratio);
+            int w = (int)(rt.Size.Width / ratio);
+            int h = (int)(rt.Size.Height / ratio);
             return new Rectangle(x, y, w, h);
         }
 
@@ -96,14 +87,16 @@ namespace DualBookScan
             try
             {
                 this.Cursor = Cursors.WaitCursor;
+
                 String fileName;
                 fileName = String.Format("{0}\\{1,6:000000}.png", ebFolder.Text, nudPage1.Value);
 
+                Rectangle rt = RectResize(rect[0], ratios[0]);
+                
                 Bitmap bmp = videoSourcePlayer1.GetCurrentVideoFrame();
-                //Bitmap sub = CropImage(bmp, rt);
-                //sub.Save(fileName, ImageFormat.Png);
-                //sub.Dispose();
-                bmp.Save(fileName, ImageFormat.Png);
+                Bitmap sub = CropImage(bmp, rt);
+                sub.Save(fileName, ImageFormat.Png);
+                sub.Dispose();
                 bmp.Dispose();
             }
             finally
@@ -120,11 +113,12 @@ namespace DualBookScan
                 String fileName;
                 fileName = String.Format("{0}\\{1,6:000000}.png", ebFolder.Text, nudPage2.Value);
 
+                Rectangle rt = RectResize(rect[1], ratios[1]);
+
                 Bitmap bmp = videoSourcePlayer2.GetCurrentVideoFrame();
-                //Bitmap sub = CropImage(bmp, rt);
-                //sub.Save(fileName, ImageFormat.Png);
-                //sub.Dispose();
-                bmp.Save(fileName, ImageFormat.Png);
+                Bitmap sub = CropImage(bmp, rt);
+                sub.Save(fileName, ImageFormat.Png);
+                sub.Dispose();
                 bmp.Dispose();
             }
             finally
