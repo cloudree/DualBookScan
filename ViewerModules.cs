@@ -24,25 +24,21 @@ namespace DualBookScan
         private Rectangle[] rect = new Rectangle[2];
         private float[] ratios = new float[2];
 
-        // viewe resizing
-        private void ResizePlayer1(Size sz)
+        // viewer resizing
+        private void viewerResize(int idx, Size sz)
         {
             int center = sz.Width / 2;
             int margin = 5;
 
-            VideoCapabilities cap = videoCapabilities1[cbResolutions1.SelectedIndex];
-            videoSourcePlayer1.Size = CalcHalfSize(sz, cap.FrameSize, videoSourcePlayer1.Location.Y, margin, ref ratios[0]);
-            videoSourcePlayer1.Location = new Point(center - margin - videoSourcePlayer1.Size.Width, videoSourcePlayer1.Location.Y);
-        }
-
-        private void ResizePlayer2(Size sz)
-        {
-            int center = sz.Width / 2;
-            int margin = 5;
-
-            VideoCapabilities cap = videoCapabilities2[cbResolutions2.SelectedIndex];
-            videoSourcePlayer2.Size = CalcHalfSize(sz, cap.FrameSize, videoSourcePlayer2.Location.Y, margin, ref ratios[1]);
-            videoSourcePlayer2.Location = new Point(center + margin, videoSourcePlayer2.Location.Y);
+            if (videoCaps[idx] != null)
+            {
+                VideoCapabilities cap = videoCaps[idx][cbResolutions[idx].SelectedIndex];
+                videoPlayers[idx].Size = CalcHalfSize(sz, cap.FrameSize, videoPlayers[idx].Location.Y, margin, ref ratios[idx]);
+                if (idx == 0)
+                    videoPlayers[idx].Location = new Point(center - margin - videoPlayers[idx].Size.Width, videoPlayers[0].Location.Y);
+                else
+                    videoPlayers[idx].Location = new Point(center + margin, videoPlayers[idx].Location.Y);
+            }
         }
 
         private Size CalcHalfSize(Size sz1, Size sz2, int top, int margin, ref float ratio)
@@ -57,6 +53,19 @@ namespace DualBookScan
             ratio = MIN(wr, hr);
 
             return new Size((int)(sz2.Height * ratio), (int)(sz2.Width * ratio));
+        }
+
+        private void viewerNewFrame(int idx, ref Bitmap image)
+        {
+            switch (idx)
+            {
+                case 0:
+                    image.RotateFlip(RotateFlipType.Rotate90FlipNone);
+                    break;
+                case 1:
+                    image.RotateFlip(RotateFlipType.Rotate90FlipXY);
+                    break;
+            }
         }
 
         // selection rect
@@ -114,67 +123,34 @@ namespace DualBookScan
         {
             isMouseDowned[idx] = false;
         }
-
-        private void videoSourcePlayer1_Paint(object sender, PaintEventArgs e)
+        
+        // On times tick - collect statistics
+        private int getFrameCount(int idx)
         {
-            Graphics grp = e.Graphics;
-            viewerRectDraw(0, grp);
+            IVideoSource videoSource = videoPlayers[idx].VideoSource;
+            return (videoSource != null) ? videoSource.FramesReceived : 0;
         }
 
-        // left scan area
-        private void videoSourcePlayer1_MouseDown(object sender, MouseEventArgs e)
+        private void timer_Tick(object sender, EventArgs e)
         {
-            viewerRectBegin(0, e.Location);
-            this.Refresh();
-        }
+            if (stopWatch == null)
+            {
+                stopWatch = new Stopwatch();
+                stopWatch.Start();
+            }
+            else
+            {
+                stopWatch.Stop();
 
-        private void videoSourcePlayer1_MouseMove(object sender, MouseEventArgs e)
-        {
-            viewerRectMove(0, e.Location);
-            this.Refresh();
-        }
+                float fps1 = 1000.0f * getFrameCount(0) / stopWatch.ElapsedMilliseconds;
+                float fps2 = 1000.0f * getFrameCount(1) / stopWatch.ElapsedMilliseconds;
 
-        private void videoSourcePlayer1_MouseUp(object sender, MouseEventArgs e)
-        {
-            viewerRectEnd(0);
-            this.Refresh();
-        }
+                camera1FpsLabel.Text = fps1.ToString("F2") + " fps";
+                camera2FpsLabel.Text = fps2.ToString("F2") + " fps";
 
-        private void videoSourcePlayer1_MouseLeave(object sender, EventArgs e)
-        {
-            viewerRectEnd(0);
-            this.Refresh();
-        }
-
-        // right scan area
-        private void videoSourcePlayer2_Paint(object sender, PaintEventArgs e)
-        {
-            Graphics grp = e.Graphics;
-            viewerRectDraw(1, grp);
-        }
-
-        private void videoSourcePlayer2_MouseDown(object sender, MouseEventArgs e)
-        {
-            viewerRectBegin(1, e.Location);
-            this.Refresh();
-        }
-
-        private void videoSourcePlayer2_MouseMove(object sender, MouseEventArgs e)
-        {
-            viewerRectMove(1, e.Location);
-            this.Refresh();
-        }
-
-        private void videoSourcePlayer2_MouseUp(object sender, MouseEventArgs e)
-        {
-            viewerRectEnd(1);
-            this.Refresh();
-        }
-
-        private void videoSourcePlayer2_MouseLeave(object sender, EventArgs e)
-        {
-            viewerRectEnd(1);
-            this.Refresh();
+                stopWatch.Reset();
+                stopWatch.Start();
+            }
         }
     }
 }

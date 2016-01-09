@@ -20,50 +20,6 @@ namespace DualBookScan
     public partial class frmMain : Form
     {
         // ======== Scanning ==================================================
-        private void btnFolder_Click(object sender, EventArgs e)
-        {
-            if (dlgFolderBrowser.ShowDialog() == DialogResult.OK)
-            {
-                ebFolder.Text = dlgFolderBrowser.SelectedPath;
-            }
-        }
-
-        private void btnScanLeft_Click(object sender, EventArgs e)
-        {
-            Scan1();
-            nudPage1.Value++;
-            nudPage1.Refresh();
-        }
-
-        private void btnScanRight_Click(object sender, EventArgs e)
-        {
-            Scan2();
-            nudPage1.Value++;
-            nudPage1.Refresh();
-        }
-
-        private void btnScanBoth_Click(object sender, EventArgs e)
-        {
-            Scan1();
-            Scan2();
-            nudPage1.Value += 2;
-            nudPage1.Refresh();
-        }
-
-        private void nudPage1_ValueChanged(object sender, EventArgs e)
-        {
-            if (cxPageReversed.Checked)
-                nudPage2.Value = nudPage1.Value + 1;
-            else
-                nudPage2.Value = nudPage1.Value - 1;
-            nudPage2.Refresh();
-        }
-
-        private void cxPageReversed_CheckedChanged(object sender, EventArgs e)
-        {
-            nudPage1.Value = cxPageReversed.Checked ? 0 : 1;
-            nudPage1.Refresh();
-        }
 
         private Rectangle RectResize(Rectangle rt, float ratio)
         {
@@ -82,18 +38,18 @@ namespace DualBookScan
             return bmp;
         }
 
-        private void Scan1()
+        private void Scan(int idx)
         {
             try
             {
                 this.Cursor = Cursors.WaitCursor;
 
                 String fileName;
-                fileName = String.Format("{0}\\{1,6:000000}.png", ebFolder.Text, nudPage1.Value);
+                fileName = String.Format("{0}\\{1,6:000000}.png", ebFolder.Text, nudPages[idx].Value);
 
-                Rectangle rt = RectResize(rect[0], ratios[0]);
+                Rectangle rt = RectResize(rect[idx], ratios[idx]);
                 
-                Bitmap bmp = videoSourcePlayer1.GetCurrentVideoFrame();
+                Bitmap bmp = videoPlayers[idx].GetCurrentVideoFrame();
                 Bitmap sub = CropImage(bmp, rt);
                 sub.Save(fileName, ImageFormat.Png);
                 sub.Dispose();
@@ -101,33 +57,7 @@ namespace DualBookScan
             }
             catch
             {
-                MessageBox.Show("Left Save Error");
-            }
-            finally
-            {
-                this.Cursor = Cursors.Default;
-            }
-        }
-
-        private void Scan2()
-        {
-            try
-            {
-                this.Cursor = Cursors.WaitCursor;
-                String fileName;
-                fileName = String.Format("{0}\\{1,6:000000}.png", ebFolder.Text, nudPage2.Value);
-
-                Rectangle rt = RectResize(rect[1], ratios[1]);
-
-                Bitmap bmp = videoSourcePlayer2.GetCurrentVideoFrame();
-                Bitmap sub = CropImage(bmp, rt);
-                sub.Save(fileName, ImageFormat.Png);
-                sub.Dispose();
-                bmp.Dispose();
-            }
-            catch
-            {
-                MessageBox.Show("Right Save Error");
+                MessageBox.Show((idx == 0) ? "Left Save Error" : "Right Save Error");
             }
             finally
             {
