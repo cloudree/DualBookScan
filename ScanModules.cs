@@ -99,6 +99,10 @@ namespace DualBookScan
                 sub.Dispose();
                 bmp.Dispose();
             }
+            catch
+            {
+                MessageBox.Show("Left Save Error");
+            }
             finally
             {
                 this.Cursor = Cursors.Default;
@@ -120,6 +124,10 @@ namespace DualBookScan
                 sub.Save(fileName, ImageFormat.Png);
                 sub.Dispose();
                 bmp.Dispose();
+            }
+            catch
+            {
+                MessageBox.Show("Right Save Error");
             }
             finally
             {
