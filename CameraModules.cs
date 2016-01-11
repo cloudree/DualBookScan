@@ -17,7 +17,7 @@ using AForge.Video.DirectShow;
 
 namespace DualBookScan
 {
-    public partial class frmMain : Form
+    public partial class frmMain
     {
         // ======== Camera Controls ===========================================
         
@@ -38,6 +38,7 @@ namespace DualBookScan
                 {
                     cbResolutions[idx].Items.Add("Not supported");
                 }
+
                 cbResolutions[idx].SelectedIndex = cbResolutions[idx].Items.Count - 1;
             }
         }

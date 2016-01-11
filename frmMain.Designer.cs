@@ -52,6 +52,7 @@
             this.btnStop = new System.Windows.Forms.Button();
             this.btnStart = new System.Windows.Forms.Button();
             this.cxPageReversed = new System.Windows.Forms.CheckBox();
+            this.btnBatch = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.nudPage1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudPage2)).BeginInit();
             this.SuspendLayout();
@@ -207,6 +208,11 @@
             // nudPage1
             // 
             this.nudPage1.Location = new System.Drawing.Point(261, 81);
+            this.nudPage1.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
             this.nudPage1.Name = "nudPage1";
             this.nudPage1.Size = new System.Drawing.Size(60, 21);
             this.nudPage1.TabIndex = 19;
@@ -215,6 +221,11 @@
             // nudPage2
             // 
             this.nudPage2.Location = new System.Drawing.Point(626, 81);
+            this.nudPage2.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
             this.nudPage2.Name = "nudPage2";
             this.nudPage2.Size = new System.Drawing.Size(60, 21);
             this.nudPage2.TabIndex = 20;
@@ -269,12 +280,23 @@
             this.cxPageReversed.UseVisualStyleBackColor = true;
             this.cxPageReversed.CheckedChanged += new System.EventHandler(this.cxPageReversed_CheckedChanged);
             // 
+            // btnBatch
+            // 
+            this.btnBatch.Location = new System.Drawing.Point(895, 57);
+            this.btnBatch.Name = "btnBatch";
+            this.btnBatch.Size = new System.Drawing.Size(100, 40);
+            this.btnBatch.TabIndex = 26;
+            this.btnBatch.Text = "Batch Tool";
+            this.btnBatch.UseVisualStyleBackColor = true;
+            this.btnBatch.Click += new System.EventHandler(this.btnBatch_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(1029, 591);
+            this.Controls.Add(this.btnBatch);
             this.Controls.Add(this.cxPageReversed);
             this.Controls.Add(this.btnStop);
             this.Controls.Add(this.btnStart);
@@ -334,6 +356,7 @@
         private System.Windows.Forms.Button btnStart;
         private System.Windows.Forms.Button btnStop;
         private System.Windows.Forms.CheckBox cxPageReversed;
+        private System.Windows.Forms.Button btnBatch;
     }
 }
 

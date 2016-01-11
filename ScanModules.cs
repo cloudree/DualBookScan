@@ -17,7 +17,7 @@ using AForge.Video.DirectShow;
 
 namespace DualBookScan
 {
-    public partial class frmMain : Form
+    public partial class frmMain
     {
         // ======== Scanning ==================================================
 

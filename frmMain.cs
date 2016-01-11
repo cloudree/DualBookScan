@@ -305,5 +305,12 @@ namespace DualBookScan
             nudPage1.Value += pages;
             nudPage1.Refresh();
         }
+
+        private void btnBatch_Click(object sender, EventArgs e)
+        {
+            frmBatch wnd = new frmBatch();
+            wnd.ebFolder.Text = ebFolder.Text;
+            wnd.Show();
+        }
     }
 }
