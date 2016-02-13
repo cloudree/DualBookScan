@@ -309,7 +309,8 @@ namespace DualBookScan
         private void btnBatch_Click(object sender, EventArgs e)
         {
             frmBatch wnd = new frmBatch();
-            wnd.ebFolder.Text = ebFolder.Text;
+            wnd.ebSrcFolder.Text = ebFolder.Text;
+            wnd.ebDestFolder.Text = ebFolder.Text;
             wnd.Show();
         }
     }

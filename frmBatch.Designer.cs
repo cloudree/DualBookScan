@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.ebFolder = new System.Windows.Forms.TextBox();
+            this.ebSrcFolder = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnFolder = new System.Windows.Forms.Button();
+            this.btnSrcFolder = new System.Windows.Forms.Button();
             this.lbFiles = new System.Windows.Forms.ListBox();
             this.btnConvertJPG = new System.Windows.Forms.Button();
             this.btnCollectPDF = new System.Windows.Forms.Button();
@@ -48,39 +48,42 @@
             this.chkGray = new System.Windows.Forms.CheckBox();
             this.dlgSaveFile = new System.Windows.Forms.SaveFileDialog();
             this.progressBar = new System.Windows.Forms.ProgressBar();
+            this.btnDestFolder = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.ebDestFolder = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.nudBright)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudContrast)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPreview)).BeginInit();
             this.SuspendLayout();
             // 
-            // ebFolder
+            // ebSrcFolder
             // 
-            this.ebFolder.Location = new System.Drawing.Point(66, 12);
-            this.ebFolder.Name = "ebFolder";
-            this.ebFolder.ReadOnly = true;
-            this.ebFolder.Size = new System.Drawing.Size(213, 21);
-            this.ebFolder.TabIndex = 0;
-            this.ebFolder.Text = "C:\\Temp";
-            this.ebFolder.TextChanged += new System.EventHandler(this.ebFolder_TextChanged);
+            this.ebSrcFolder.Location = new System.Drawing.Point(85, 12);
+            this.ebSrcFolder.Name = "ebSrcFolder";
+            this.ebSrcFolder.ReadOnly = true;
+            this.ebSrcFolder.Size = new System.Drawing.Size(194, 21);
+            this.ebSrcFolder.TabIndex = 0;
+            this.ebSrcFolder.Text = "C:\\Temp";
+            this.ebSrcFolder.TextChanged += new System.EventHandler(this.ebSrcFolder_TextChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(12, 15);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(48, 12);
+            this.label1.Size = new System.Drawing.Size(67, 12);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Folder :";
+            this.label1.Text = "Src Folder:";
             // 
-            // btnFolder
+            // btnSrcFolder
             // 
-            this.btnFolder.Location = new System.Drawing.Point(285, 12);
-            this.btnFolder.Name = "btnFolder";
-            this.btnFolder.Size = new System.Drawing.Size(32, 21);
-            this.btnFolder.TabIndex = 2;
-            this.btnFolder.Text = "...";
-            this.btnFolder.UseVisualStyleBackColor = true;
-            this.btnFolder.Click += new System.EventHandler(this.btnFolder_Click);
+            this.btnSrcFolder.Location = new System.Drawing.Point(285, 12);
+            this.btnSrcFolder.Name = "btnSrcFolder";
+            this.btnSrcFolder.Size = new System.Drawing.Size(32, 21);
+            this.btnSrcFolder.TabIndex = 2;
+            this.btnSrcFolder.Text = "...";
+            this.btnSrcFolder.UseVisualStyleBackColor = true;
+            this.btnSrcFolder.Click += new System.EventHandler(this.btnSrcFolder_Click);
             // 
             // lbFiles
             // 
@@ -95,9 +98,9 @@
             // 
             // btnConvertJPG
             // 
-            this.btnConvertJPG.Location = new System.Drawing.Point(476, 114);
+            this.btnConvertJPG.Location = new System.Drawing.Point(434, 507);
             this.btnConvertJPG.Name = "btnConvertJPG";
-            this.btnConvertJPG.Size = new System.Drawing.Size(129, 30);
+            this.btnConvertJPG.Size = new System.Drawing.Size(184, 21);
             this.btnConvertJPG.TabIndex = 4;
             this.btnConvertJPG.Text = "Convert to .JPG";
             this.btnConvertJPG.UseVisualStyleBackColor = true;
@@ -105,9 +108,9 @@
             // 
             // btnCollectPDF
             // 
-            this.btnCollectPDF.Location = new System.Drawing.Point(353, 529);
+            this.btnCollectPDF.Location = new System.Drawing.Point(434, 534);
             this.btnCollectPDF.Name = "btnCollectPDF";
-            this.btnCollectPDF.Size = new System.Drawing.Size(252, 30);
+            this.btnCollectPDF.Size = new System.Drawing.Size(184, 21);
             this.btnCollectPDF.TabIndex = 6;
             this.btnCollectPDF.Text = "Collect to .PDF ...";
             this.btnCollectPDF.UseVisualStyleBackColor = true;
@@ -116,7 +119,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(351, 64);
+            this.label2.Location = new System.Drawing.Point(351, 430);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(65, 12);
             this.label2.TabIndex = 7;
@@ -125,7 +128,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(351, 89);
+            this.label3.Location = new System.Drawing.Point(351, 455);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(52, 12);
             this.label3.TabIndex = 8;
@@ -134,7 +137,7 @@
             // nudBright
             // 
             this.nudBright.Enabled = false;
-            this.nudBright.Location = new System.Drawing.Point(476, 60);
+            this.nudBright.Location = new System.Drawing.Point(476, 426);
             this.nudBright.Maximum = new decimal(new int[] {
             255,
             0,
@@ -153,7 +156,7 @@
             // nudContrast
             // 
             this.nudContrast.Enabled = false;
-            this.nudContrast.Location = new System.Drawing.Point(476, 87);
+            this.nudContrast.Location = new System.Drawing.Point(476, 453);
             this.nudContrast.Maximum = new decimal(new int[] {
             255,
             0,
@@ -172,9 +175,9 @@
             // pbPreview
             // 
             this.pbPreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbPreview.Location = new System.Drawing.Point(353, 187);
+            this.pbPreview.Location = new System.Drawing.Point(353, 39);
             this.pbPreview.Name = "pbPreview";
-            this.pbPreview.Size = new System.Drawing.Size(252, 324);
+            this.pbPreview.Size = new System.Drawing.Size(306, 362);
             this.pbPreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbPreview.TabIndex = 18;
             this.pbPreview.TabStop = false;
@@ -184,7 +187,7 @@
             this.chkAuto.AutoSize = true;
             this.chkAuto.Checked = true;
             this.chkAuto.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkAuto.Location = new System.Drawing.Point(353, 165);
+            this.chkAuto.Location = new System.Drawing.Point(353, 15);
             this.chkAuto.Name = "chkAuto";
             this.chkAuto.Size = new System.Drawing.Size(199, 16);
             this.chkAuto.TabIndex = 19;
@@ -195,7 +198,7 @@
             // btnApply
             // 
             this.btnApply.Enabled = false;
-            this.btnApply.Location = new System.Drawing.Point(556, 162);
+            this.btnApply.Location = new System.Drawing.Point(610, 11);
             this.btnApply.Name = "btnApply";
             this.btnApply.Size = new System.Drawing.Size(49, 21);
             this.btnApply.TabIndex = 20;
@@ -208,7 +211,7 @@
             this.chkBrightAuto.AutoSize = true;
             this.chkBrightAuto.Checked = true;
             this.chkBrightAuto.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkBrightAuto.Location = new System.Drawing.Point(422, 63);
+            this.chkBrightAuto.Location = new System.Drawing.Point(422, 429);
             this.chkBrightAuto.Name = "chkBrightAuto";
             this.chkBrightAuto.Size = new System.Drawing.Size(48, 16);
             this.chkBrightAuto.TabIndex = 21;
@@ -221,7 +224,7 @@
             this.chkContrastAuto.AutoSize = true;
             this.chkContrastAuto.Checked = true;
             this.chkContrastAuto.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkContrastAuto.Location = new System.Drawing.Point(422, 88);
+            this.chkContrastAuto.Location = new System.Drawing.Point(422, 454);
             this.chkContrastAuto.Name = "chkContrastAuto";
             this.chkContrastAuto.Size = new System.Drawing.Size(48, 16);
             this.chkContrastAuto.TabIndex = 22;
@@ -244,7 +247,7 @@
             this.chkGray.AutoSize = true;
             this.chkGray.Checked = true;
             this.chkGray.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkGray.Location = new System.Drawing.Point(353, 36);
+            this.chkGray.Location = new System.Drawing.Point(353, 407);
             this.chkGray.Name = "chkGray";
             this.chkGray.Size = new System.Drawing.Size(82, 16);
             this.chkGray.TabIndex = 24;
@@ -256,14 +259,45 @@
             // 
             this.progressBar.Location = new System.Drawing.Point(15, 565);
             this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(590, 20);
+            this.progressBar.Size = new System.Drawing.Size(644, 20);
             this.progressBar.TabIndex = 25;
+            // 
+            // btnDestFolder
+            // 
+            this.btnDestFolder.Location = new System.Drawing.Point(627, 479);
+            this.btnDestFolder.Name = "btnDestFolder";
+            this.btnDestFolder.Size = new System.Drawing.Size(32, 21);
+            this.btnDestFolder.TabIndex = 28;
+            this.btnDestFolder.Text = "...";
+            this.btnDestFolder.UseVisualStyleBackColor = true;
+            this.btnDestFolder.Click += new System.EventHandler(this.btnDestFolder_Click);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(351, 483);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(77, 12);
+            this.label4.TabIndex = 27;
+            this.label4.Text = "Dest Folder :";
+            // 
+            // ebDestFolder
+            // 
+            this.ebDestFolder.Location = new System.Drawing.Point(434, 480);
+            this.ebDestFolder.Name = "ebDestFolder";
+            this.ebDestFolder.ReadOnly = true;
+            this.ebDestFolder.Size = new System.Drawing.Size(184, 21);
+            this.ebDestFolder.TabIndex = 26;
+            this.ebDestFolder.Text = "C:\\Temp";
             // 
             // frmBatch
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(617, 594);
+            this.ClientSize = new System.Drawing.Size(671, 594);
+            this.Controls.Add(this.btnDestFolder);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.ebDestFolder);
             this.Controls.Add(this.progressBar);
             this.Controls.Add(this.chkGray);
             this.Controls.Add(this.btnFolderRefresh);
@@ -279,9 +313,9 @@
             this.Controls.Add(this.btnCollectPDF);
             this.Controls.Add(this.btnConvertJPG);
             this.Controls.Add(this.lbFiles);
-            this.Controls.Add(this.btnFolder);
+            this.Controls.Add(this.btnSrcFolder);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.ebFolder);
+            this.Controls.Add(this.ebSrcFolder);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmBatch";
@@ -296,7 +330,7 @@
 
         #endregion
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button btnFolder;
+        private System.Windows.Forms.Button btnSrcFolder;
         private System.Windows.Forms.ListBox lbFiles;
         private System.Windows.Forms.Button btnConvertJPG;
         private System.Windows.Forms.Button btnCollectPDF;
@@ -314,6 +348,9 @@
         private System.Windows.Forms.CheckBox chkGray;
         private System.Windows.Forms.SaveFileDialog dlgSaveFile;
         private System.Windows.Forms.ProgressBar progressBar;
-        public System.Windows.Forms.TextBox ebFolder;
+        public System.Windows.Forms.TextBox ebSrcFolder;
+        private System.Windows.Forms.Button btnDestFolder;
+        private System.Windows.Forms.Label label4;
+        public System.Windows.Forms.TextBox ebDestFolder;
     }
 }

@@ -28,13 +28,13 @@ namespace DualBookScan
         private void RefreshFileList()
         {
             lbFiles.Items.Clear();
-            if (ebFolder.Text == "")
+            if (ebSrcFolder.Text == "")
                 return;
 
             // https://support.microsoft.com/ko-kr/kb/303974
             try
             {
-                foreach (string f in Directory.GetFiles(ebFolder.Text))
+                foreach (string f in Directory.GetFiles(ebSrcFolder.Text))
                 {
                     lbFiles.Items.Add(f);
                 }
@@ -73,22 +73,40 @@ namespace DualBookScan
                 return;
             int last = lbFiles.SelectedIndices[selCount - 1];
 
+            progressBar.Value = 0;
+            progressBar.Maximum = lbFiles.SelectedIndices.Count;
+
             foreach (int idx in lbFiles.SelectedIndices)
             {
                 String srcName = lbFiles.Items[idx].ToString();
+
                 int pos = srcName.LastIndexOf('.');
                 String destName = srcName.Substring(0, pos) + ".jpg";
 
+                pos = destName.LastIndexOf('\\');
+                destName = ebDestFolder.Text + destName.Substring(pos, destName.Length - pos);
+
+                if( srcName.CompareTo(destName) == 0 )
+                {
+                    MessageBox.Show("Same Filename & Folder, Plz change dest Folder!");
+                    return;
+                }
                 Bitmap bmp = new Bitmap(srcName);
                 Convert(ref bmp);
                 bmp.Save(destName);
                 bmp.Dispose();
+
+                progressBar.Value++;
             }
+
+            progressBar.Value = progressBar.Maximum;
+
+            MessageBox.Show("Convert Completed");
         }
 
         private void CollectPDF()
         {
-            dlgSaveFile.InitialDirectory = ebFolder.Text;
+            dlgSaveFile.InitialDirectory = ebSrcFolder.Text;
             dlgSaveFile.Filter = "PDF Files (*.pdf)|*.pdf";
             dlgSaveFile.DefaultExt = ".pdf";
             if (dlgSaveFile.ShowDialog() != DialogResult.OK)
@@ -135,22 +153,42 @@ namespace DualBookScan
             int last = lbFiles.SelectedIndices[selCount - 1];
             String srcName = lbFiles.Items[last].ToString();
 
-            Bitmap bmp = new Bitmap(srcName);
-            Convert(ref bmp);
-            pbPreview.Image = bmp;
+            try
+            {
+                Bitmap bmp = new Bitmap(srcName);
+                Convert(ref bmp);
+                pbPreview.Image = bmp;
+            }
+            catch
+            {
+                // no handler
+            }
         }
 
         private void ebFolder_TextChanged(object sender, EventArgs e)
         {
+        }
+        
+        private void ebSrcFolder_TextChanged(object sender, EventArgs e)
+        {
             RefreshFileList();
         }
 
-        private void btnFolder_Click(object sender, EventArgs e)
+        private void btnSrcFolder_Click(object sender, EventArgs e)
         {
-            dlgFolderBrowser.SelectedPath = ebFolder.Text;
+            dlgFolderBrowser.SelectedPath = ebSrcFolder.Text;
             if (dlgFolderBrowser.ShowDialog() == DialogResult.OK)
             {
-                ebFolder.Text = dlgFolderBrowser.SelectedPath;
+                ebSrcFolder.Text = dlgFolderBrowser.SelectedPath;
+            }
+        }
+
+        private void btnDestFolder_Click(object sender, EventArgs e)
+        {
+            dlgFolderBrowser.SelectedPath = ebDestFolder.Text;
+            if (dlgFolderBrowser.ShowDialog() == DialogResult.OK)
+            {
+                ebDestFolder.Text = dlgFolderBrowser.SelectedPath;
             }
         }
 
@@ -210,6 +248,7 @@ namespace DualBookScan
             RefreshPreview();
         }
 
+        // ======== batch controls ===========================================
         private void btnConvertJPG_Click(object sender, EventArgs e)
         {
             ConvertJPG();
